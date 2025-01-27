@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How are you feeling today?</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>How are you feeling today?</h1>
+    <form action="/submit" method="POST">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+
+        <label style="margin-bottom: 20px;">How are you feeling?</label>
+        <br>
+
+        <input type="radio" id="newday" name="feeling" value="1" required>
+        <label for="newday">"Tomorrow is a new day with no mistakes in it... yet"</label>
+        <br>
+
+        <input type="radio" id="oldworld" name="feeling" value="2">
+        <label for="oldworld">"Dear old world … you are very lovely, and I am glad to be alive in you."</label>
+        <br>
+
+        <input type="radio" id="pruned" name="feeling" value="3">
+        <label for="pruned">"I'm not a bit changed — not really. I'm only just pruned down and branched out. The real ME — back here — is just the same."</label>
+        <br>
+
+        <input type="radio" id="tryfail" name="feeling" value="4">
+        <label for="tryfail">"Next to trying and winning, the best thing is trying and failing."</label>
+        <br>
+
+        <input type="radio" id="nature" name="feeling" value="5">
+        <label for="nature">"Nature isn't always pleasant. Especially when the river current is strong and any moment, you could slip into it."</label>
+        <br>
+
+        <input type="radio" id="redhair" name="feeling" value="6">
+        <label for="redhair">"Red hair is my lifelong sorrow."</label>
+        <br>
+
+        <input type="radio" id="despair" name="feeling" value="7">
+        <label for="despair">"I'm in the depths of despair. Can you eat when you are in the depths of despair?"</label>
+        <br><br>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

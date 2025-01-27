@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>Feelings Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Feeling</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% feelingsData.forEach(entry => { %>
+                <tr>
+                    <td><%= entry.name %></td>
+                    <td>
+                        <% if (entry.feeling === 1) { %>"Tomorrow is a new day with no mistakes in it... yet"
+                        <% } else if (entry.feeling === 2) { %>"Dear old world … you are very lovely, and I am glad to be alive in you."
+                        <% } else if (entry.feeling === 3) { %>"I'm not a bit changed — not really. I'm only just pruned down and branched out. The real ME — back here — is just the same."
+                        <% } else if (entry.feeling === 4) { %>"Next to trying and winning, the best thing is trying and failing."
+                        <% } else if (entry.feeling === 5) { %>"Nature isn't always pleasant. Especially when the river current is strong and any moment, you could slip into it."
+                        <% } else if (entry.feeling === 6) { %>"Red hair is my lifelong sorrow."
+                        <% } else if (entry.feeling === 7) { %>"I'm in the depths of despair. Can you eat when you are in the depths of despair?"
+                        <% } %>
+                    </td>
+                    
+                    <td><%= entry.date %></td>
+                    <td>
+                        <!-- Form to update feeling -->
+                        <form action="/update/<%= entry.name %>" method="POST" style="display: inline;">
+                            <select name="feeling">
+                                <option value="1" <%= entry.feeling === 1 ? 'selected' : '' %>>no mistakes</option>
+                                <option value="2" <%= entry.feeling === 2 ? 'selected' : '' %>>very lovely</option>
+                                <option value="3" <%= entry.feeling === 3 ? 'selected' : '' %>>just the same</option>
+                                <option value="4" <%= entry.feeling === 4 ? 'selected' : '' %>>failing</option>
+                                <option value="5" <%= entry.feeling === 5 ? 'selected' : '' %>>isn't always pleasant</option>
+                                <option value="6" <%= entry.feeling === 6 ? 'selected' : '' %>>lifelong sorrow</option>
+                                <option value="7" <%= entry.feeling === 7 ? 'selected' : '' %>>depths of despair</option>
+
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                        <!-- Form to delete feeling -->
+                        <form action="/delete/<%= entry.name %>" method="POST" style="display: inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/logout">Logout</a>
+</body>
+</html>

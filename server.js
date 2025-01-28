@@ -1,25 +1,14 @@
 const express = require('express');
 const session = require('express-session');
 const flash = require('connect-flash');
+const { feelingsData, theQuotes, users } = require('./data/data');
+
+require('dotenv').config();
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+
 const app = express();
-
-// initial data set for feelings
-let feelingsData = [
-    { name: 'Anne', feeling: 1, date: '2025-01-01' },
-    { name: 'Gilbert', feeling: 2, date: '2025-01-02' },
-    { name: 'Diana', feeling: 3, date: '2025-01-03' },
-    { name: 'Katherine', feeling: 1, date: '2025-01-04' },
-    { name: 'Marilla', feeling: 2, date: '2025-01-05' },
-    { name: 'Matthew', feeling: 2, date: '2025-01-06' },
-    { name: 'Rachel', feeling: 4, date: '2025-01-07' },   
-    { name: 'Ruby', feeling: 5, date: '2025-01-08' },      
-    { name: 'Miss Stacy', feeling: 6, date: '2025-01-09' }, 
-    { name: 'Marilla', feeling: 7, date: '2025-01-10' }    
-];
-
-// admin credentials (for demo purposes)
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = '1876'; 
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -56,12 +45,11 @@ app.get('/login', (req, res) => {
 // login POST - authenticate admin
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    // simple hardcoded admin check 
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
         req.session.isAdmin = true;
         res.redirect('/admin');
     } else {
-        req.flash('error', 'Invalid credentials');
+        req.flash('error', 'Oh dear, it appears my digital key does not unlock this particular door. These credentials are most certainly insufficient for the task at hand.');
         res.redirect('/login');
     }
 });
@@ -71,18 +59,26 @@ app.get('/admin', isAdmin, (req, res) => {
     res.render('admin', { feelingsData });
 });
 
+// rendering the thankyou page
+app.get('/thankyou', (req, res) => {
+    res.render('thankyou');
+});
+
 // POST route - add a new feeling
 app.post('/submit', (req, res) => {
     const { name, feeling } = req.body;
     const date = new Date().toISOString().split('T')[0];
     feelingsData.push({ name, feeling: parseInt(feeling), date });
-    res.redirect('/');
+    res.redirect('/thankyou');
 });
 
 // DELETE route - delete a feeling (admin only)
 app.post('/delete/:name', isAdmin, (req, res) => {
     const nameToDelete = req.params.name;
-    feelingsData = feelingsData.filter(entry => entry.name !== nameToDelete);
+    const index = feelingsData.findIndex(entry => entry.name === nameToDelete);
+    if (index !== -1) {
+        feelingsData.splice(index, 1);
+    }
     res.redirect('/admin');
 });
 
@@ -90,9 +86,11 @@ app.post('/delete/:name', isAdmin, (req, res) => {
 app.post('/update/:name', isAdmin, (req, res) => {
     const nameToUpdate = req.params.name;
     const { feeling } = req.body;
-    feelingsData = feelingsData.map(entry => 
-        entry.name === nameToUpdate ? { ...entry, feeling: parseInt(feeling) } : entry
-    );
+    feelingsData.forEach(entry => {
+        if (entry.name === nameToUpdate) {
+            entry.feeling = parseInt(feeling);
+        }
+    });
     res.redirect('/admin');
 });
 
@@ -107,6 +105,7 @@ app.get('/logout', (req, res) => {
 });
 
 // set the server to listen on port 1876 - the year Anne Shirley arrived in Avonlea
-app.listen(1876, () => {
-    console.log('Server running on http://localhost:1876');
+const PORT = process.env.PORT || 1876;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

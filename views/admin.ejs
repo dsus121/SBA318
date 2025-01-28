@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
+    <h1>Administrator's Dashboard</h1>
     <h2>Feelings Data</h2>
     <table>
         <thead>
@@ -24,19 +24,19 @@
                 <tr>
                     <td><%= entry.name %></td>
                     <td>
-                        <% if (entry.feeling === 1) { %>"Tomorrow is a new day with no mistakes in it... yet"
-                        <% } else if (entry.feeling === 2) { %>"Dear old world … you are very lovely, and I am glad to be alive in you."
-                        <% } else if (entry.feeling === 3) { %>"I'm not a bit changed — not really. I'm only just pruned down and branched out. The real ME — back here — is just the same."
-                        <% } else if (entry.feeling === 4) { %>"Next to trying and winning, the best thing is trying and failing."
-                        <% } else if (entry.feeling === 5) { %>"Nature isn't always pleasant. Especially when the river current is strong and any moment, you could slip into it."
+                        <% if (entry.feeling === 1) { %>"Tomorrow is a new day ..."
+                        <% } else if (entry.feeling === 2) { %>"Dear old world ..."
+                        <% } else if (entry.feeling === 3) { %>"I'm not a bit changed ..."
+                        <% } else if (entry.feeling === 4) { %>"Next to trying ..."
+                        <% } else if (entry.feeling === 5) { %>"... isn't always pleasant ..."
                         <% } else if (entry.feeling === 6) { %>"Red hair is my lifelong sorrow."
-                        <% } else if (entry.feeling === 7) { %>"I'm in the depths of despair. Can you eat when you are in the depths of despair?"
+                        <% } else if (entry.feeling === 7) { %>"... the depths of despair ..."
                         <% } %>
                     </td>
                     
                     <td><%= entry.date %></td>
                     <td>
-                        <!-- Form to update feeling -->
+                        <!-- form to update feeling -->
                         <form action="/update/<%= entry.name %>" method="POST" style="display: inline;">
                             <select name="feeling">
                                 <option value="1" <%= entry.feeling === 1 ? 'selected' : '' %>>no mistakes</option>
@@ -48,11 +48,11 @@
                                 <option value="7" <%= entry.feeling === 7 ? 'selected' : '' %>>depths of despair</option>
 
                             </select>
-                            <button type="submit">Update</button>
+                            <button type="submit-admin">Update</button>
                         </form>
-                        <!-- Form to delete feeling -->
+                        <!-- form to delete feeling -->
                         <form action="/delete/<%= entry.name %>" method="POST" style="display: inline;">
-                            <button type="submit">Delete</button>
+                            <button type="submit-admin">Delete</button>
                         </form>
                     </td>
                 </tr>

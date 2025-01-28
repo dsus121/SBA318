@@ -32,22 +32,21 @@ label {
     color: #3a5b3a;
 }
 
-input[type="text"], input[type="radio"] {
-    margin: 10px 0;
-    font-size: 1.1em;
-}
-
 input[type="text"] {
     padding: 8px;
     width: 60%;
     border: 2px solid #5b8c5a;
     border-radius: 5px;
     box-sizing: border-box;
+    margin: 10px 0;
+    font-size: 1.1em;
 }
 
 input[type="radio"] {
     margin-right: 10px;
     margin-top: 20px;
+    margin: 10px 0;
+    font-size: 1.1em;
 }
 
 button {
@@ -115,4 +114,19 @@ a:hover {
 
 #name {
     width: 200px; 
+}
+
+#submit-admin {
+    background-color: #5b8c5a;
+    color: white;
+    font-size: .7em;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#submit-admin:hover {
+    background-color: #3a5b3a;
 }

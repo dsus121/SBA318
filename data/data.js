@@ -21,7 +21,7 @@ const theQuotes = [
     {character: "Gilbert Blythe", feelingNum: 5, quote: "Carrots! Carrots!"},
     {character: "Diana Barry", feelingNum: 6, quote: "I think people make their names nice or ugly just by what they are themselves."},
     {character: "Anne Shirley", feelingNum: 7, quote: "I'm in the depths of despair. Can you eat when you are in the depths of despair?"}
-    ]
+    ];
 
  const users = [
         { username: 'admin', password: '1876', role: 'admin' },

@@ -1,6 +1,10 @@
 const express = require('express');
 const session = require('express-session');
 const flash = require('connect-flash');
+const path = require('path');
+const routes = require('./routes/routes');
+const bodyParser = require('body-parser');
+
 const { feelingsData, theQuotes, users } = require('./data/data');
 
 require('dotenv').config();
@@ -11,9 +15,13 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
+app.set('views', path.join(__dirname, 'views'));
 app.use(flash());
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // session setup for authentication
 app.use(session({
@@ -30,6 +38,22 @@ function isAdmin(req, res, next) {
     res.redirect('/login'); // redirect to login if not admin
 }
 
+
+
+// error-handling middleware ... i like the one in routes.js better
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something went wrong! Please try again later.');
+// });
+
+
+// app.use((req, res, next) => {
+//     res.locals.error = req.flash('error');
+//     res.locals.success = req.flash('success');
+//     next();
+// });
+
+app.use('/', routes);
 // routes
 
 // home route - display feelings data
